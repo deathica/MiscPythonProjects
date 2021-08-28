@@ -65,6 +65,9 @@ while True:
     cont = int(input("Press 1 to scan more ports, or 2 to close the program.\n"))
     if cont == 2:
         break
+    elif cont != 1 or 2:
+        print("Error. Please enter 1 or 2 next time.")
+        break
 print("Shutting down, have a nice day.")
 sleep(2)
 sys.exit()
