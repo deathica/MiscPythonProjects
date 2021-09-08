@@ -4,14 +4,14 @@
 import socket
 import sys as sys
 from time import sleep
-common = {21, 22, 23, 25, 53, 443, 110, 135, 137, 138, 139, 1433, 1434}
+common = {21, 22, 23, 25, 53, 110, 135, 137, 138, 139, 443, 1433, 1434}
 openports = []
 userin = ""
 count = 0
 global target
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 while True:
-    userin = int(input("Please select an option:\n1. Scan commonly exposed ports. (21, 22, 23, 25, 53, 443, 110, 135, 137, 138, 139, 1433, 1434)\n2. Scan all possible ports. (MIGHT TAKE AWHILE!)\n3. Scan target port.\n4. Exit\n"))
+    userin = int(input("Please select an option:\n1. Scan commonly exposed ports. (21, 22, 23, 25, 53, 110, 135, 137, 138, 139, 443, 1433, 1434)\n2. Scan all possible ports. (MIGHT TAKE AWHILE!)\n3. Scan target port.\n4. Exit\n"))
     if userin != 4:
         target = input("Please enter target ip in x.x.x.x format.\nIf you would like to enter a domain, enter domain.\n")
     elif userin == 4:
@@ -28,6 +28,7 @@ while True:
                 print("Port " + str(val) + " is open.")
                 count += 1
                 openports.append(val)
+                s.close()
             else:
                 print("Port " + str(val) + " is closed.")
         s.close
@@ -44,7 +45,9 @@ while True:
                 print("Port " + str(i) + " is open.")
                 count += 1
                 openports.append(i)
+                s.close()
             else:
+                print(result_of_check)
                 print("Port " + str(i) + " is closed.")
         s.close()
         print("Open port count =", count)
@@ -65,7 +68,7 @@ while True:
     cont = int(input("Press 1 to scan more ports, or 2 to close the program.\n"))
     if cont == 2:
         break
-    elif cont != 1 or 2:
+    elif cont != 1 and cont != 2:
         print("Error. Please enter 1 or 2 next time.")
         break
 print("Shutting down, have a nice day.")
