@@ -28,6 +28,7 @@ while True:
                 print("Port " + str(val) + " is open.")
                 count += 1
                 openports.append(val)
+                s.shutdown()
                 s.close()
             else:
                 print("Port " + str(val) + " is closed.")
