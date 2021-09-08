@@ -9,7 +9,6 @@ openports = []
 userin = ""
 count = 0
 global target
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 while True:
     userin = int(input("Please select an option:\n1. Scan commonly exposed ports. (21, 22, 23, 25, 53, 110, 135, 137, 138, 139, 443, 1433, 1434)\n2. Scan all possible ports. (MIGHT TAKE AWHILE!)\n3. Scan target port.\n4. Exit\n"))
     if userin != 4:
@@ -23,16 +22,17 @@ while True:
         print("Scanning commonly exposed ports, please wait...")
         for val in common:
             location = (target, val)
-            result_of_check = s.connect_ex(location)
-            if result_of_check == 0:
-                print("Port " + str(val) + " is open.")
-                count += 1
-                openports.append(val)
-                s.shutdown()
-                s.close()
-            else:
+            print(location)
+            try:
+                with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                    result_of_check = s.connect(location)
+                    print("Port " + str(val) + " is open.")
+                    count += 1
+                    openports.append(val)
+            except Exception as e:
                 print("Port " + str(val) + " is closed.")
-        s.close
+                print(e)
+        s.close()
         print("Open port count:", count)
         print("Open ports:", openports)
         count == 0
@@ -41,15 +41,15 @@ while True:
         print("Scanning every port.")
         for i in range(1, 65536):
             location = (target, i)
-            result_of_check = s.connect_ex(location)
-            if result_of_check == 0:
-                print("Port " + str(i) + " is open.")
-                count += 1
-                openports.append(i)
-                s.close()
-            else:
-                print(result_of_check)
+            try:
+                with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                    result_of_check = s.connect(location)
+                    print("Port " + str(i) + " is open.")
+                    count += 1
+                    openports.append(val)
+            except Exception as e:
                 print("Port " + str(i) + " is closed.")
+                print(e)
         s.close()
         print("Open port count =", count)
         print("Open ports:", openports)
