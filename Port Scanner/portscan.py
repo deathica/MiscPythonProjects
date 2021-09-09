@@ -4,13 +4,13 @@
 import socket
 import sys as sys
 from time import sleep
-common = {21, 22, 23, 25, 53, 110, 135, 137, 138, 139, 443, 1433, 1434}
+common = {21, 22, 23, 25, 53, 110, 135, 137, 138, 139, 443, 445, 1433, 1434}
 openports = []
 userin = ""
 count = 0
 global target
 while True:
-    userin = int(input("Please select an option:\n1. Scan commonly exposed ports. (21, 22, 23, 25, 53, 110, 135, 137, 138, 139, 443, 1433, 1434)\n2. Scan all possible ports. (MIGHT TAKE AWHILE!)\n3. Scan target port.\n4. Exit\n"))
+    userin = int(input("Please select an option:\n1. Scan commonly exposed ports. (21, 22, 23, 25, 53, 110, 135, 137, 138, 139, 443, 445, 1433, 1434)\n2. Scan all possible ports. (MIGHT TAKE AWHILE!)\n3. Scan target port.\n4. Exit\n"))
     if userin != 4:
         target = input("Please enter target ip in x.x.x.x format.\nIf you would like to enter a domain, enter domain.\n")
     elif userin == 4:
