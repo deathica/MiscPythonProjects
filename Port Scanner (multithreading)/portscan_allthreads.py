@@ -67,16 +67,21 @@ while __name__ == "__main__":
         targetport = int(input("Enter target port.\n"))
         print("Scanning port, please wait...")
         location = (target, targetport)
-        result_of_check = s.connect_ex(location)
-        if result_of_check == 0:
-            print("Port " + str(targetport) + " is open.")
-        else:
-            print("Port " + str(targetport) + " is closed.")
-            print(result_of_check)
-        s.close()
-    cont = int(input("Press 1 to scan more ports, or 2 to close the program.\n"))
-    if cont == 2:
-        break
+        try:
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                result_of_check = s.connect(location)
+                print("Port " + str(targetport) + " is open.")
+                count += 1
+                openports.append(targetport)
+        except Exception as e:
+             print("Port " + str(targetport) + " is closed.")
+             print(str(e))
+    try:
+        cont = int(input("Press 1 to scan more ports, or 2 to close the program.\n"))
+        if cont == 2:
+            break
+    except Exception as e:
+        print(e)
 if __name__ == "__main__":
     print("Shutting down, have a nice day.")
     sleep(2)
