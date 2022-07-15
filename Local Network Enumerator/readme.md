@@ -1,0 +1,3 @@
+This program attempts to automatically detect devices on your local network, by attempting to connect to any ip within subnet 255.255.255.0 of your local ip address. From there,
+the user may attempt to scan the ports of all detected IP addresses, which will be collected into a dictionary containing alive hosts and any open ports found.
+Currently it uses a simple socket connection, so it is not very stealthy, but from pre-testing, it does seem to work reasonably well.
