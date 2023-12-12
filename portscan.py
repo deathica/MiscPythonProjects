@@ -2,11 +2,10 @@
 # Date: 12/11/2023
 # Program: Port Scanner tool.
 from colorama import Fore, Back
+from multiprocessing import Pool, Manager
 import os
 import socket
 import sys as sys
-from time import sleep
-from multiprocessing import Pool, Manager
 import pyfiglet
 
 txt = (Fore.GREEN + Back.BLACK)
@@ -101,6 +100,5 @@ while __name__ == "__main__":
 
 if __name__ == "__main__":
     print("Shutting down, have a nice day.")
-    sleep(2)
     print(Fore.WHITE, Back.BLACK)
     sys.exit()
